@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent-a-Companion: Rent a Boyfriend or Girlfriend</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .logo { font-size: 2rem; color: #ff6b6b; font-weight: bold; }
+        .hero { background: linear-gradient(to right, #ff6b6b, #4ecdc4); color: white; padding: 100px 0; }
+        .companion-card { margin: 20px 0; transition: transform 0.3s; }
+        .companion-card:hover { transform: scale(1.05); }
+        .modal { display: none; }
+        .modal.show { display: block; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand logo" href="#home"><i class="fas fa-heart"></i> Rent-a-Companion</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#browse">Browse</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
+                    <li class="nav-item"><button class="btn btn-outline-primary ms-2" onclick="openModal('login')">Login</button></li>
+                    <li class="nav-item"><button class="btn btn-primary ms-2" onclick="openModal('signup')">Sign Up</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Homepage -->
+    <section id="home" class="hero text-center">
+        <div class="container">
+            <h5>A Best Website For Lonely People.
+            <h1>Rent a Boyfriend, Girlfriend, or Friend</h1>
+            <p>Like the Rent a Friend app, but for romantic or platonic companionship. Book vetted companions for dates, events, or support.</p>
+            <a href="#browse" class="btn btn-light btn-lg">Start Browsing</a>
+        </div>
+    </section>
+
+    <!-- Browse Companions -->
+    <section id="browse" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Browse Companions</h2>
+            <div class="mb-3 text-center">
+                <button class="btn btn-outline-secondary me-2" onclick="filterCompanions('all')">All</button>
+                <button class="btn btn-outline-secondary me-2" onclick="filterCompanions('boyfriend')">Boyfriends</button>
+                <button class="btn btn-outline-secondary me-2" onclick="filterCompanions('girlfriend')">Girlfriends</button>
+                <button class="btn btn-outline-secondary" onclick="filterCompanions('friend')">Friends</button>
+            </div>
+            <div class="row" id="companions-list">
+                <!-- Companion Cards (dynamically filtered) -->
+                <div class="col-md-4 companion-card" data-type="boyfriend">
+                    <div class="card">
+                        <img src="https/yuvraz jpj.heic/300x200?text=Yuvraz" class="card-img-top" alt="Yuvraz">
+                        <div class="card-body">
+                            <h5 class="card-title">Yuvraz thapa - Rent a Boyfriend</h5>
+                            <p class="card-text">Height:5.5 ft</p>
+                            <p class="card-text">Fun guy for dates and events. $50/hour. 4.8⭐</p>
+                            <button class="btn btn-success" onclick="bookCompanion('Yuvraz')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 companion-card" data-type="girlfriend">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/300x200?text=Mia" class="card-img-top" alt="Mia">
+                        <div class="card-body">
+                            <h5 class="card-title">Mia - Rent a Girlfriend</h5>
+                            <p class="card-text">Charming for weddings or outings. $55/hour. 4.9⭐</p>
+                            <button class="btn btn-success" onclick="bookCompanion('Mia')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 companion-card" data-type="friend">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/300x200?text=Jordan" class="card-img-top" alt="Jordan">
+                        <div class="card-body">
+                            <h5 class="card-title">Jordan - Rent a Friend</h5>
+                            <p class="card-text">Platonic buddy for adventures. $40/hour. 4.7⭐</p>
+                            <button class="btn btn-success" onclick="bookCompanion('Jordan')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">How It Works</h2>
+            <div class="row text-center">
+                <div class="col-md-4"><h4>1. Sign Up/Login</h4><p>Create an account to browse and book.</p></div>
+                <div class="col-md-4"><h4>2. Browse & Book</h4><p>Choose a companion and schedule your time.</p></div>
+                <div class="col-md-4"><h4>3. Meet & Enjoy</h4><p>Safe, vetted meetings with reviews.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals for Login/Signup -->
+    <div id="login-modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h5>Login</h5><button class="btn-close" onclick="closeModal()"></button></div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <input type="email" class="form-control mb-2" placeholder="Email" required>
+                        <input type="password" class="form-control mb-2" placeholder="Password" required>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="signup-modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h5>Sign Up</h5><button class="btn-close" onclick="closeModal()"></button></div>
+                <div class="modal-body">
+                    <form id="signup-form">
+                        <input type="text" class="form-control mb-2" placeholder="Name" required>
+                        <input type="email" class="form-control mb-2" placeholder="Email" required>
+                        <input type="password" class="form-control mb-2" placeholder="Password" required>
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h5>Book <span id="booking-name"></span></h5><button class="btn-close" onclick="closeModal()"></button></div>
+                <div class="modal-body">
+                    <form id="booking-form">
+                        <input type="date" class="form-control mb-2" required>
+                        <input type="time" class="form-control mb-2" required>
+                        <input type="number" class="form-control mb-2" placeholder="Hours" min="1" required>
+                        <button type="submit" class="btn btn-success">Confirm Booking</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 Rent-a-Companion. All rights reserved. | <a href="#" class="text-white">Privacy Policy</a> | <a href="#" class="text-white">Terms</a></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Modal functions
+        function openModal(type) { document.getElementById(type + '-modal').classList.add('show'); }
+        function closeModal() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')); }
+
+        // Filter companions
+        function filterCompanions(type) {
+            const cards = document.querySelectorAll('.companion-card');
+            cards.forEach(card => {
+                if (type === 'all' || card.dataset.type === type) card.style.display = 'block';
+                else card.style.display = 'none';
+            });
+        }
+
+        // Book companion
+        function bookCompanion(name) {
+            document.getElementById('booking-name').textContent = name;
+            document.getElementById('booking-modal').classList.add('show');
+        }
+
+        // Form submissions (demo with alerts)
+        document.getElementById('login-form').addEventListener('submit', e => { e.preventDefault(); alert('Logged in!'); closeModal(); });
+        document.getElementById('signup-form').addEventListener('submit', e => { e.preventDefault(); alert('Signed up!'); closeModal(); });
+        document.getElementById('booking-form').addEventListener('submit', e => { e.preventDefault(); alert('Booking confirmed!'); closeModal(); });
+    </script>
+</body>
+</html>
